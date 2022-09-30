@@ -19,7 +19,7 @@ export default function App() {
     const [newr, setNewr] = useState("");
     let arr = ["hello its my","bbbf"];
 let get_orders=()=>{
-  fetch("https://makemesites.com/restoran/waitermobb.php?restoran=gyros", {
+  fetch("https://makemesites.com/restoran/app/waitermobb.php?restoran=gyros", {
     method: "GET", // POST, PUT, DELETE, etc.
     headers: {
       // значение этого заголовка обычно ставится автоматически,
@@ -32,11 +32,11 @@ let get_orders=()=>{
        let q = JSON.parse(data)
         let n = q.map((el)=><Text key={el.id}>{el.zakaz}</Text>)
         let ordersToShow = q.map((el)=>{
-          return <Test key={el.id} style={styles.full} zakaz={el.zakaz} stolik={el.stolik}></Test>
+          return <Test key={el.id} style={styles.full} zakaz={el.zakaz} id={el.id} stolik={el.stolik}></Test>
         })
         setNewr(ordersToShow)
         
-        console.log("test length"+newr.length);
+        console.log(ordersToShow);
        })})
 }
 // useEffect(() => {
@@ -73,9 +73,11 @@ useEffect(() => {
  }, [newr.length]);
   return (
     <View style={styles.container}>
-      <Text>Pedidos totales:{newr.length}</Text>
+      <Text style={styles.total}>Pedidos totales:{newr.length}</Text>
       <Text>{newr}</Text>
+      <View  style={styles.limpia}>
       <Button title="go" onPress={playSound}></Button>
+        </View>     
     </View>
   );
 }
@@ -91,5 +93,17 @@ const styles = StyleSheet.create({
   },
   full:{
     width: '100%',
+  },
+  limpia:{
+    justifyContent:"center",
+    alignContent:"center",
+  //  position:"absolute",
+    bottom:0,
+  },
+  total:{
+    textAlign:"center",
+    fontSize:23,
+    marginBottom:40,
+    marginTop:-20,
   }
 });
