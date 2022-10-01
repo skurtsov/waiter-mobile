@@ -1,19 +1,26 @@
-import React from "react";
-import { Text, View, FlatList,StyleSheet, Modal, TextInput, Button} from 'react-native';
+import React, { useRef } from "react";
+import { Text, View, FlatList,StyleSheet, Modal, TextInput, Button, TouchableOpacity} from 'react-native';
 import { Dimensions } from 'react-native';
 //import {faCheck} from ';
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome'
 import { faCheck, faTrash, faPen  } from '@fortawesome/free-solid-svg-icons'
 import { useState,useEffect} from 'react';
 import { Pressable } from "react-native"
-
+import { Root, Popup } from 'react-native-popup-confirm-toast'
+import Modal_me from "./Modal";
 
 
 
 let Test = (props) => {
     let arr = props.zakaz.split(",");
-    const [hidden, setHidden] = useState(false);
+    const [hidden, setHidden] = useState(true);
+    const [modl, setModl] = useState(false);
+    const inputRef = useRef(null);
+    const updateRef = ref => {
+      inputRef.current = ref.current;
+    };
     let show_arr = arr.slice(1,arr.length);
+    const [text,setText] = useState('');
    // console.log("array to show"+show_arr)
    let deleteById=(prod_id)=>{
     alert('deleted'+prod_id)
@@ -26,26 +33,20 @@ let Test = (props) => {
       },
       cache: "no-cache", // no-store, reload, no-cache, force-cache или only-if-cached
     })
-        // var xhr = new XMLHttpRequest();
 
-        // var body = "id="+prod_id+"&restoran="+restoran;
-        
-        // console.log(props.orders);
-        // xhr.open("POST", 'https://makemesites.com/restoran/delete_id.php', true);
-        // xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-
-        // xhr.send(body);
-        // console.log(xhr)
-        // props.setIgnore(true)
      }
+
 return(
 <View style={st.card}>
 <Text style={st.mesa}>Numero de mesa:{props.stolik}</Text>
 <View style={st.card_c}>
+  
 <FlatList
         data={show_arr}
+        
         renderItem={({item}) => <Text>{item}</Text>}
       />
+ 
      
               {/* <FontAwesomeIcon  size={30} icon={ faCheck } /> */}
               {/* <FontAwesomeIcon icon={ faTrash} /> */}
@@ -57,23 +58,37 @@ return(
             <Pressable onPress={()=> deleteById(props.id)}>
             <FontAwesomeIcon style={st.trash} icon={faTrash} size={25} />
           </Pressable>}
-          <Pressable onPress={()=>setHidden(true)}>
-            <FontAwesomeIcon style={st.edit} size={25} icon={faPen} />
-            </Pressable>
-              </View>
-<Modal style={st.mmodal} visible={hidden}>
-  <View>
-    <Text>Modalll</Text>
-  <TextInput style={st.tarea}
-    multiline={true}
-    numberOfLines={50}
-    defaultValue={show_arr.toString()}
-    />
-    <Button title="redact" onPress={()=>setHidden(false)}/> 
-  </View>
-</Modal>
 
-</View>       
+        <Pressable
+      
+            onPress={() =>
+                Popup.show({
+                    type: 'confirm',
+                    title: 'Edit!',
+                    bodyComponent: () => <Modal_me restoran="gyros" id={props.id} zakaz={show_arr.toString()}/>,
+                    confirmText: 'Cancel',
+                    callback: () => {
+                      alert(text)
+                    //  console.log(inputRef.current.value)
+                        Popup.hide();
+                    },
+                    cancelCallback: () => {
+                        Popup.hide();
+                    },
+                    okButtonStyle: {
+                      display: 'none',
+                    },
+                    
+                })
+            
+            }
+        >
+            <FontAwesomeIcon style={st.edit} size={25} icon={faPen} />
+        </Pressable>
+
+</View>  
+</View>
+   
 );
 }
 const st = StyleSheet.create({
@@ -107,7 +122,6 @@ const st = StyleSheet.create({
         margin:20,
       },
       tarea: {
-        width:Dimensions.get('window').width,
         borderStyle: "solid",
         borderColor: "#000",
         borderWidth: 1,

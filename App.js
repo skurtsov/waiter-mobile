@@ -1,8 +1,9 @@
 import { StatusBar } from 'expo-status-bar';
 import { useState,useEffect} from 'react';
-import { Button, StyleSheet, Text, TextInput, View } from 'react-native';
+import { Button, StyleSheet, Text, TextInput, View, TouchableOpacity } from 'react-native';
 import Test from './Components/Test';
 import {Audio} from 'expo-av';
+import { Root, Popup } from 'react-native-popup-confirm-toast'
 
 export default function App() {
     let restoran = "gyros";
@@ -36,34 +37,27 @@ let get_orders=()=>{
         })
         setNewr(ordersToShow)
         
-        console.log(ordersToShow);
+      //  console.log(ordersToShow);
        })})
 }
-// useEffect(() => {
-  // fetch('https://makemesites.com/restoran/waitermob.php?restoran=gyros')
-  // .then(function (response) {
-  //   response.text().then(function (data) {
-  //  setNewr(data)
-  //   })
-  // })
+let clean_orders=()=>{     
 
-// })
+    fetch("https://makemesites.com/restoran/app/cleanmob.php?restoran=gyros", {
+      method: "GET", // POST, PUT, DELETE, etc.
+      headers: {
+        // значение этого заголовка обычно ставится автоматически,
+        // в зависимости от тела запроса
+        "Content-Type": "text/plain;charset=UTF-8"
+      },
+      cache: "no-cache", // no-store, reload, no-cache, force-cache или only-if-cached
+    })
+
+}
 useEffect(() => {
 
   setInterval(() => {
     get_orders();
     setPedidos(newr.length)
-
-  // 
- //   try {
-  //     // play the file tone.mp3
-  //    // SoundPlayer.playSoundFile('tone', 'mp3')
-  //     // or play from url
-     
-  // } catch (e) {
-  //     console.log(`cannot play the sound file`, e)
-  // }
-  //console.log("ped:"+pedidos);
   }, 2000);
 
   
@@ -72,13 +66,43 @@ useEffect(() => {
   playSound();
  }, [newr.length]);
   return (
+    <Root>
     <View style={styles.container}>
       <Text style={styles.total}>Pedidos totales:{newr.length}</Text>
       <Text>{newr}</Text>
-      <View  style={styles.limpia}>
-      <Button title="go" onPress={playSound}></Button>
-        </View>     
+
+       
+        <View style={styles.loginButtonSection}>
+        <TouchableOpacity
+         style={styles.button}
+            onPress={() =>
+                Popup.show({
+                    type: 'confirm',
+                    title: '¿Está seguro?',
+                    textBody: 'Si hace clic en "sí", se borran todos los pedidos ',
+                    buttonText: 'Sí',
+                    confirmText: 'No',
+                    callback: () => {
+                        clean_orders();
+                        Popup.hide();
+                    },
+                    cancelCallback: () => {
+                        Popup.hide();
+                    },
+                    okButtonStyle: {
+                      backgroundColor: 'green',
+                    },
+                })
+            
+            }
+        >
+            <Text>Limpiar todo</Text>
+        </TouchableOpacity>
+   
     </View>
+    
+    </View>
+    </Root>
   );
 }
 
@@ -95,15 +119,37 @@ const styles = StyleSheet.create({
     width: '100%',
   },
   limpia:{
-    justifyContent:"center",
-    alignContent:"center",
-  //  position:"absolute",
-    bottom:0,
+    width:100,
+    justifyContent:'center',
   },
   total:{
     textAlign:"center",
     fontSize:23,
     marginBottom:40,
     marginTop:-20,
-  }
+  },
+  loginButtonSection: {
+
+    justifyContent: 'center',
+    alignItems: 'center'
+ },
+ loginButton: {
+  backgroundColor: 'transparent',
+  color: 'white',
+  width:250,
+},
+button: {
+  alignItems: 'center',
+  backgroundColor: "transparent",
+  width: 150,
+  height: 45,
+  borderColor: "#000",
+  borderWidth: 2,
+  borderRadius: 5,
+  marginTop: 250,
+  padding:10
+},
+okButtonStyle:{
+  backgroundColor:'#fff',
+}
 });

@@ -17,8 +17,10 @@
     "expo-status-bar": "~1.4.0",
     "react": "18.0.0",
     "react-native": "0.69.6",
+    "react-native-popup-confirm-toast": "^2.2.2",
     "react-native-sound": "^0.11.2",
     "react-native-sound-player": "^0.13.2",
+    "react-native-status-bar-height": "^2.6.0",
     "react-native-svg": "12.3.0"
   },
   "devDependencies": {
