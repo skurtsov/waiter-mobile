@@ -28,10 +28,10 @@ let Modal_me = (props) => {
   }
 return(
 <View>
-<TextInput defaultValue={text} onChangeText={(text) => setText(text)} style={st.tarea}/>
+<TextInput multiline={true} defaultValue={text} onChangeText={(text) => setText(text)} style={st.tarea}/>
 <View style={st.loginButtonSection}>
-<TouchableOpacity style={st.button} onPress={go_redact}>
-  <Text>Redact</Text>
+<TouchableOpacity style={st.redact} onPress={go_redact}>
+  <Text style={st.redact_txt}>Editar</Text>
 </TouchableOpacity>
 </View>
 </View>
@@ -74,14 +74,15 @@ const st = StyleSheet.create({
         borderWidth: 1,
         alignItems:'center',
     },
-    button: {
+    redact: {
       alignItems: 'center',
-      backgroundColor: "transparent",
+      backgroundColor: "green",
+      color:'#fff',
       width: '100%',
       height: 45,
-      borderColor: "#000",
+      borderColor: "green",
       borderWidth: 2,
-      borderRadius: 5,
+      borderRadius: 10,
       marginTop: 25,
       padding:10
     },
@@ -90,7 +91,9 @@ const st = StyleSheet.create({
       justifyContent: 'center',
       alignItems: 'center'
    },
-       
+   redact_txt:{
+    color:'white',
+   }
    
   });
 export default Modal_me;

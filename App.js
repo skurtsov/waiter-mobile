@@ -66,7 +66,7 @@ useEffect(() => {
   playSound();
  }, [newr.length]);
   return (
-    <Root>
+    <Root style={styles.blanco}>
     <View style={styles.container}>
       <Text style={styles.total}>Pedidos totales:{newr.length}</Text>
       <Text>{newr}</Text>
@@ -96,7 +96,7 @@ useEffect(() => {
             
             }
         >
-            <Text>Limpiar todo</Text>
+            <Text style={styles.bu_text}>Limpiar todo</Text>
         </TouchableOpacity>
    
     </View>
@@ -135,7 +135,7 @@ const styles = StyleSheet.create({
  },
  loginButton: {
   backgroundColor: 'transparent',
-  color: 'white',
+  color: '#40bb5e',
   width:250,
 },
 button: {
@@ -143,13 +143,20 @@ button: {
   backgroundColor: "transparent",
   width: 150,
   height: 45,
-  borderColor: "#000",
+  borderColor: "#40bb5e",
+  color:'#40bb5e',
   borderWidth: 2,
   borderRadius: 5,
   marginTop: 250,
   padding:10
 },
 okButtonStyle:{
-  backgroundColor:'#fff',
-}
+  backgroundColor:'#40bb5e',
+},
+blanco:{
+  backgroundColor:'black',
+},
+bu_text:{
+  color:'#40bb5e',
+},
 });

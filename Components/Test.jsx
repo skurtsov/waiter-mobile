@@ -43,7 +43,7 @@ return(
   
 <FlatList
         data={show_arr}
-        
+        style={st.listl}
         renderItem={({item}) => <Text>{item}</Text>}
       />
  
@@ -64,9 +64,9 @@ return(
             onPress={() =>
                 Popup.show({
                     type: 'confirm',
-                    title: 'Edit!',
+                    title: 'Quieres editar?',
                     bodyComponent: () => <Modal_me restoran="gyros" id={props.id} zakaz={show_arr.toString()}/>,
-                    confirmText: 'Cancel',
+                    confirmText: 'Cancelar',
                     callback: () => {
                       alert(text)
                     //  console.log(inputRef.current.value)
@@ -127,6 +127,9 @@ const st = StyleSheet.create({
         borderWidth: 1,
         alignItems:'center',
     },
+    listl:{
+      padding:10,
+    }
 
        
    
