@@ -23,7 +23,6 @@ let Test = (props) => {
     const [text,setText] = useState('');
    // console.log("array to show"+show_arr)
    let deleteById=(prod_id)=>{
-    alert('deleted'+prod_id)
     fetch("https://makemesites.com/restoran/app/delete_idmob.php?restoran=gyros&id="+prod_id, {
       method: "GET", // POST, PUT, DELETE, etc.
       headers: {
@@ -44,7 +43,7 @@ return(
 <FlatList
         data={show_arr}
         style={st.listl}
-        renderItem={({item}) => <Text>{item}</Text>}
+        renderItem={({item}) => <Text  style={st.listl_txt}>{item}</Text>}
       />
  
      
@@ -90,6 +89,7 @@ return(
 </View>
    
 );
+
 }
 const st = StyleSheet.create({
     card: {
@@ -104,6 +104,7 @@ const st = StyleSheet.create({
         justifyContent:"center",
         selfAlign:"center",
         textAlignVertical: "center",
+        fontFamily:'mt-medium',
       },
       card_c:{
         flexDirection:"row",
@@ -129,6 +130,11 @@ const st = StyleSheet.create({
     },
     listl:{
       padding:10,
+      fontFamily:'mt-bold',
+
+    },
+    listl_txt:{
+      fontFamily:'mt-medium',
     }
 
        

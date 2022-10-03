@@ -73,6 +73,7 @@ const st = StyleSheet.create({
         borderColor: "#000",
         borderWidth: 1,
         alignItems:'center',
+        fontFamily:'mt-medium',
     },
     redact: {
       alignItems: 'center',
@@ -84,7 +85,7 @@ const st = StyleSheet.create({
       borderWidth: 2,
       borderRadius: 10,
       marginTop: 25,
-      padding:10
+      padding:10,
     },
     loginButtonSection: {
 
@@ -93,6 +94,7 @@ const st = StyleSheet.create({
    },
    redact_txt:{
     color:'white',
+   fontFamily:'mt-medium',
    }
    
   });

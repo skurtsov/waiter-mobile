@@ -21,7 +21,8 @@
     "react-native-sound": "^0.11.2",
     "react-native-sound-player": "^0.13.2",
     "react-native-status-bar-height": "^2.6.0",
-    "react-native-svg": "12.3.0"
+    "react-native-svg": "12.3.0",
+    "expo-app-loading": "~2.1.0"
   },
   "devDependencies": {
     "@babel/core": "^7.12.9"

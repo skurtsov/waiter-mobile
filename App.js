@@ -4,6 +4,13 @@ import { Button, StyleSheet, Text, TextInput, View, TouchableOpacity } from 'rea
 import Test from './Components/Test';
 import {Audio} from 'expo-av';
 import { Root, Popup } from 'react-native-popup-confirm-toast'
+import * as Font from 'expo-font';
+import AppLoading from 'expo-app-loading';
+
+const fonts= () => Font.loadAsync({
+  'mt-medium': require('./assets/fonts/Montserrat-Medium.ttf'),
+  'mt-bold': require('./assets/fonts/Montserrat-Bold.ttf')
+});
 
 export default function App() {
     let restoran = "gyros";
@@ -19,6 +26,7 @@ export default function App() {
     let [ptemp, setPtemp] = useState(0);
     const [newr, setNewr] = useState("");
     let arr = ["hello its my","bbbf"];
+    const [font, setFont] = useState(false)
 let get_orders=()=>{
   fetch("https://makemesites.com/restoran/app/waitermobb.php?restoran=gyros", {
     method: "GET", // POST, PUT, DELETE, etc.
@@ -65,6 +73,7 @@ useEffect(() => {
 useEffect(() => {
   playSound();
  }, [newr.length]);
+ if(font){
   return (
     <Root style={styles.blanco}>
     <View style={styles.container}>
@@ -91,6 +100,7 @@ useEffect(() => {
                     },
                     okButtonStyle: {
                       backgroundColor: 'green',
+                     fontFamily:'mt-bold',
                     },
                 })
             
@@ -104,6 +114,12 @@ useEffect(() => {
     </View>
     </Root>
   );
+          }
+  else{
+    return(
+    <AppLoading onError={console.warn} startAsync={fonts} onFinish={()=>setFont(true)}/>
+    );
+  }
 }
 
 const styles = StyleSheet.create({
@@ -124,6 +140,7 @@ const styles = StyleSheet.create({
   },
   total:{
     textAlign:"center",
+    fontFamily:'mt-bold',
     fontSize:23,
     marginBottom:40,
     marginTop:-20,
@@ -158,5 +175,6 @@ blanco:{
 },
 bu_text:{
   color:'#40bb5e',
+  fontFamily:'mt-medium',
 },
 });
