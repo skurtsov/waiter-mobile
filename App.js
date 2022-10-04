@@ -8,7 +8,8 @@ import * as Font from 'expo-font';
 import AppLoading from 'expo-app-loading';
 import Main from './Components/Main';
 import Auth from './Components/Auth';
-
+import { NavigationContainer } from '@react-navigation/native';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
 const fonts= () => Font.loadAsync({
   'mt-medium': require('./assets/fonts/Montserrat-Medium.ttf'),
@@ -18,9 +19,14 @@ const fonts= () => Font.loadAsync({
 
 export default function App() {
   const [font, setFont] = useState(false)
+  const [token,setToken] = useState(null)
+  const [restoran,setRestoran] = useState("")
 if(font){
   return (   
-        <Auth/>  
+        
+        <NavigationContainer>
+         {token !== null ? <Main token={token} restoran={restoran} /> : <Auth token={token} setRestoran={setRestoran} setToken={setToken}/> } 
+      </NavigationContainer>
   );}
   else{
     return(

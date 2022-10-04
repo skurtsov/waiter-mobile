@@ -23,7 +23,7 @@ let Test = (props) => {
     const [text,setText] = useState('');
    // console.log("array to show"+show_arr)
    let deleteById=(prod_id)=>{
-    fetch("https://makemesites.com/restoran/app/delete_idmob.php?restoran=gyros&id="+prod_id, {
+    fetch("https://makemesites.com/restoran/app/delete_idmob.php?restoran="+props.restoran+"&id="+prod_id, {
       method: "GET", // POST, PUT, DELETE, etc.
       headers: {
         // значение этого заголовка обычно ставится автоматически,
@@ -64,7 +64,7 @@ return(
                 Popup.show({
                     type: 'confirm',
                     title: 'Quieres editar?',
-                    bodyComponent: () => <Modal_me restoran="gyros" id={props.id} zakaz={show_arr.toString()}/>,
+                    bodyComponent: () => <Modal_me restoran={props.restoran} id={props.id} zakaz={show_arr.toString()}/>,
                     confirmText: 'Cancelar',
                     callback: () => {
                       alert(text)

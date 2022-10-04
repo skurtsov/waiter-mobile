@@ -1,13 +1,13 @@
 import { StatusBar } from 'expo-status-bar';
 import { useState,useEffect} from 'react';
-import { Button, StyleSheet, Text, TextInput, View, TouchableOpacity } from 'react-native';
+import { Button, StyleSheet, Text, TextInput, View, TouchableOpacity, ProgressViewIOSComponent } from 'react-native';
 import Test from './Test';
 import {Audio} from 'expo-av';
 import { Root, Popup } from 'react-native-popup-confirm-toast'
 
 
-let Main=()=> {
-    let restoran = "gyros";
+let Main=(props)=> {
+    let restoran = props.restoran;
     const playSound= async()=>{
       await Audio.Sound.createAsync(
         { uri: 'https://makemesites.com/restoran/new.mp3' },
@@ -21,7 +21,7 @@ let Main=()=> {
     const [newr, setNewr] = useState("");
     let arr = ["hello its my","bbbf"];
     let get_orders=()=>{
-  fetch("https://makemesites.com/restoran/app/waitermobb.php?restoran=gyros", {
+  fetch("https://makemesites.com/restoran/app/waitermobb.php?restoran="+restoran, {
     method: "GET", // POST, PUT, DELETE, etc.
     headers: {
       // значение этого заголовка обычно ставится автоматически,
@@ -34,7 +34,7 @@ let Main=()=> {
        let q = JSON.parse(data)
         let n = q.map((el)=><Text key={el.id}>{el.zakaz}</Text>)
         let ordersToShow = q.map((el)=>{
-          return <Test key={el.id} style={styles.full} zakaz={el.zakaz} id={el.id} stolik={el.stolik}></Test>
+          return <Test restoran={restoran} key={el.id} style={styles.full} zakaz={el.zakaz} id={el.id} stolik={el.stolik}></Test>
         })
         setNewr(ordersToShow)
         
@@ -43,7 +43,7 @@ let Main=()=> {
 }
 let clean_orders=()=>{     
 
-    fetch("https://makemesites.com/restoran/app/cleanmob.php?restoran=gyros", {
+    fetch("https://makemesites.com/restoran/app/cleanmob.php?restoran="+restoran, {
       method: "GET", // POST, PUT, DELETE, etc.
       headers: {
         // значение этого заголовка обычно ставится автоматически,
@@ -69,10 +69,9 @@ useEffect(() => {
   return (
     <Root style={styles.blanco}>
     <View style={styles.container}>
-      <Text style={styles.total}>Pedidos totales:{newr.length}</Text>
-      <Text>{newr}</Text>
 
-       
+      <Text style={styles.total}>Pedidos totales:{newr.length}</Text>
+      <Text>{newr}</Text>      
         <View style={styles.loginButtonSection}>
         <TouchableOpacity
          style={styles.button}
