@@ -45,6 +45,7 @@ return(
         style={st.listl}
         renderItem={({item}) => <Text  style={st.listl_txt}>{item}</Text>}
       />
+      
  
      
               {/* <FontAwesomeIcon  size={30} icon={ faCheck } /> */}

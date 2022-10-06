@@ -1,6 +1,6 @@
 import { StatusBar } from 'expo-status-bar';
 import { useState,useEffect} from 'react';
-import { Button, StyleSheet, Text, TextInput, View, TouchableOpacity, ProgressViewIOSComponent } from 'react-native';
+import { Button, StyleSheet, Text, TextInput, View, TouchableOpacity, ProgressViewIOSComponent, ScrollView, FlatList } from 'react-native';
 import Test from './Test';
 import {Audio} from 'expo-av';
 import { Root, Popup } from 'react-native-popup-confirm-toast'
@@ -59,6 +59,7 @@ useEffect(() => {
   setInterval(() => {
     get_orders();
     setPedidos(newr.length)
+    
   }, 2000);
 
   
@@ -69,9 +70,16 @@ useEffect(() => {
   return (
     <Root style={styles.blanco}>
     <View style={styles.container}>
-
+    <View style={styles.content}>
       <Text style={styles.total}>Pedidos totales:{newr.length}</Text>
-      <Text>{newr}</Text>      
+      <View style={styles.scrl} >
+            <ScrollView style={{height:800}}>
+                <Text>
+                    {newr}
+                </Text>
+            </ScrollView>
+      </View>
+        
         <View style={styles.loginButtonSection}>
         <TouchableOpacity
          style={styles.button}
@@ -101,7 +109,7 @@ useEffect(() => {
         </TouchableOpacity>
    
     </View>
-    
+    </View>
     </View>
     </Root>
   );
@@ -114,13 +122,19 @@ const styles = StyleSheet.create({
      backgroundColor: '#fff',
      flex:1,
      alignSelf: "stretch",
-     marginTop: 100,
+    backgroundColor:'white'
 
-
+  },
+  content:{
+    marginTop:100,
   },
   full:{
     width: '100%',
   },
+  scrl:{
+
+    height:560,
+    },
   limpia:{
     width:100,
     justifyContent:'center',
@@ -151,14 +165,14 @@ button: {
   color:'#40bb5e',
   borderWidth: 2,
   borderRadius: 5,
-  marginTop: 250,
+  marginTop: 10,
   padding:10
 },
 okButtonStyle:{
   backgroundColor:'#40bb5e',
 },
 blanco:{
-  backgroundColor:'black',
+  backgroundColor:'white',
 },
 bu_text:{
   color:'#40bb5e',
