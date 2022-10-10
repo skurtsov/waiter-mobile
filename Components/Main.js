@@ -18,6 +18,7 @@ let Main=(props)=> {
     const [responsew, setResponsew] = useState("");
     let  [pedidos, setPedidos] = useState(0);
     let [ptemp, setPtemp] = useState(0);
+    let [ignore, setIgnore] = useState(false);
     const [newr, setNewr] = useState("");
     let arr = ["hello its my","bbbf"];
     let get_orders=()=>{
@@ -34,7 +35,7 @@ let Main=(props)=> {
        let q = JSON.parse(data)
         let n = q.map((el)=><Text key={el.id}>{el.zakaz}</Text>)
         let ordersToShow = q.map((el)=>{
-          return <Test restoran={restoran} key={el.id} style={styles.full} zakaz={el.zakaz} id={el.id} stolik={el.stolik}></Test>
+          return <Test restoran={restoran} key={el.id} style={styles.full} setIgnore={setIgnore} zakaz={el.zakaz} id={el.id} stolik={el.stolik}></Test>
         })
         setNewr(ordersToShow)
         
@@ -62,55 +63,59 @@ useEffect(() => {
     
   }, 2000);
 
-  
 }, []);
 useEffect(() => {
+  if(newr.length !== 0 && !ignore)
   playSound();
+  setIgnore(false);
  }, [newr.length]);
   return (
     <Root style={styles.blanco}>
-    <View style={styles.container}>
-    <View style={styles.content}>
-      <Text style={styles.total}>Pedidos totales:{newr.length}</Text>
-      <View style={styles.scrl} >
-            <ScrollView style={{height:800}}>
-                <Text>
-                    {newr}
-                </Text>
-            </ScrollView>
-      </View>
-        
-        <View style={styles.loginButtonSection}>
-        <TouchableOpacity
-         style={styles.button}
-            onPress={() =>
-                Popup.show({
-                    type: 'confirm',
-                    title: '¿Está seguro?',
-                    textBody: 'Si hace clic en "sí", se borran todos los pedidos ',
-                    buttonText: 'Sí',
-                    confirmText: 'No',
-                    callback: () => {
-                        clean_orders();
-                        Popup.hide();
-                    },
-                    cancelCallback: () => {
-                        Popup.hide();
-                    },
-                    okButtonStyle: {
-                      backgroundColor: 'green',
-                     fontFamily:'mt-bold',
-                    },
-                })
+        <View style={styles.container}>
+                <View style={styles.content}>
+                      <Text style={styles.total}>Pedidos totales:{newr.length}</Text>
+
+                      <View style={styles.scrl}>
+                            <ScrollView style={{height:800}}>
+                                <Text>
+                                    {newr}
+                                </Text>
+                            </ScrollView>
+                      </View>
+           
+            </View>
             
-            }
-        >
-            <Text style={styles.bu_text}>Limpiar todo</Text>
-        </TouchableOpacity>
-   
-    </View>
-    </View>
-    </View>
+        </View>
+                     
+        <View style={styles.loginButtonSection}>
+                        <TouchableOpacity
+                        style={styles.button}
+                            onPress={() =>
+                                Popup.show({
+                                    type: 'confirm',
+                                    title: '¿Está seguro?',
+                                    textBody: 'Si hace clic en "sí", se borran todos los pedidos ',
+                                    buttonText: 'Sí',
+                                    confirmText: 'No',
+                                    callback: () => {
+                                        clean_orders();
+                                        Popup.hide();
+                                    },
+                                    cancelCallback: () => {
+                                        Popup.hide();
+                                    },
+                                    okButtonStyle: {
+                                      backgroundColor: 'green',
+                                    fontFamily:'mt-bold',
+                                    },
+                                })
+                            
+                            }
+                        >
+                            <Text style={styles.bu_text}>Limpiar todo</Text>
+                        </TouchableOpacity>
+                  
+                </View>
     </Root>
   );
           
@@ -126,14 +131,13 @@ const styles = StyleSheet.create({
 
   },
   content:{
-    marginTop:100,
+    marginTop:'15%',
   },
   full:{
     width: '100%',
   },
   scrl:{
-
-    height:560,
+    height:'87%',
     },
   limpia:{
     width:100,
@@ -165,8 +169,10 @@ button: {
   color:'#40bb5e',
   borderWidth: 2,
   borderRadius: 5,
-  marginTop: 10,
-  padding:10
+ // marginTop: '5%',
+  padding:10,
+  position:'absolute',
+  bottom:10,
 },
 okButtonStyle:{
   backgroundColor:'#40bb5e',

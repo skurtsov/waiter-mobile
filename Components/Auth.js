@@ -1,6 +1,7 @@
 import { StatusBar } from 'expo-status-bar';
 import { useState,useEffect} from 'react';
-import { Button, StyleSheet, Text, TextInput, View, TouchableOpacity, Image } from 'react-native';
+import { Button, StyleSheet, Text, TextInput, View, TouchableOpacity, Image,} from 'react-native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import Test from './Test';
 import {Audio} from 'expo-av';
 import { Root, Popup } from 'react-native-popup-confirm-toast'
@@ -21,6 +22,7 @@ let go_login = () =>{
   }).then(function (response) {
       response.json().then(function (data) {
         console.log(data)
+  
         props.setRestoran(data.restoran);
         props.setToken(data.token)
        })})
@@ -29,7 +31,7 @@ let go_login = () =>{
     <View style={styles.container}>
       <Image style={styles.img} source={require('../assets/logo.png')}/>
       {/* <Text style={styles.headl}>Bienvenido a Reactive Cafe</Text> */}
-          <TextInput autocapitalize="off" placeholder='Login' style={styles.inpt} onChangeText={(text)=>setLogin(text)}/>
+          <TextInput autoCapitalize='none' placeholder='Login' style={styles.inpt} onChangeText={(text)=>setLogin(text)}/>
           <TextInput secureTextEntry={true} placeholder='Password' style={styles.inpt} onChangeText={(textq)=>setPass(textq)} />
          <TouchableOpacity style={styles.login__button}onPress={go_login}>
                <Text style={styles.login__text}>Iniciar sesión</Text>

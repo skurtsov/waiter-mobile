@@ -32,7 +32,7 @@ let Test = (props) => {
       },
       cache: "no-cache", // no-store, reload, no-cache, force-cache или only-if-cached
     })
-
+    props.setIgnore(true)
      }
 
 return(
