@@ -10,6 +10,7 @@ import { Root, Popup } from 'react-native-popup-confirm-toast'
 let Auth=(props)=> {
   const [login,setLogin]= useState('');
   const [pass,setPass]= useState('');
+  const [hidd,setHidd] = useState(false);
   // const [token,setToken]= useState('');
   // const [restoran,setRestoran]= useState('');
 let go_login = () =>{
@@ -21,11 +22,11 @@ let go_login = () =>{
     cache: "no-cache", // no-store, reload, no-cache, force-cache или only-if-cached
   }).then(function (response) {
       response.json().then(function (data) {
-        console.log(data)
-  
+        console.log("data token is:"+data.token)
         props.setRestoran(data.restoran);
         props.setToken(data.token)
        })})
+       setHidd(true)
 }
   return (
     <View style={styles.container}>
@@ -33,11 +34,12 @@ let go_login = () =>{
       {/* <Text style={styles.headl}>Bienvenido a Reactive Cafe</Text> */}
           <TextInput autoCapitalize='none' placeholder='Login' style={styles.inpt} onChangeText={(text)=>setLogin(text)}/>
           <TextInput secureTextEntry={true} placeholder='Password' style={styles.inpt} onChangeText={(textq)=>setPass(textq)} />
+          {hidd ? <Text style={styles.err}>El nombre de usuario o la contraseña no es válida</Text>:null}
          <TouchableOpacity style={styles.login__button}onPress={go_login}>
                <Text style={styles.login__text}>Iniciar sesión</Text>
          </TouchableOpacity>
          <Text></Text> 
-         <TouchableOpacity style={styles.cuenta} onPress={()=>alert("No se puede crear una cuenta en este momento.Por favor llame al gerente +34612222062")}>
+         <TouchableOpacity style={styles.cuenta} onPress={()=>props.setRegister(true)}>
                <Text >¿ No tienes cuenta? Crear una cuenta</Text>
          </TouchableOpacity>
     </View>
@@ -54,6 +56,11 @@ const styles = StyleSheet.create({
      marginTop:-100,
      justifyContent:'center',
      alignItems:'center',
+  },
+  err:{
+    fontFamily:'mt-medium',
+    fontSize:10,
+    color:'red',
   },
   cuenta:{
     fontFamily:'mt-medium',

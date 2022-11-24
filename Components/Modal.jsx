@@ -74,6 +74,7 @@ const st = StyleSheet.create({
         borderWidth: 1,
         alignItems:'center',
         fontFamily:'mt-medium',
+        padding:10,
     },
     redact: {
       alignItems: 'center',

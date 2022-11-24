@@ -112,16 +112,20 @@ const st = StyleSheet.create({
       },
       check:{
         color:"green",
-        margin:20,
+        marginTop:30,
+        marginRight:20,
+
       },
       trash:{
         color:'red',
-        margin:20,
-
+        marginTop:30,
+        marginRight:20,
       },
       edit:{
         color:'blue',
-        margin:20,
+        marginTop:30,
+        marginRight:20,
+
       },
       tarea: {
         borderStyle: "solid",
@@ -130,7 +134,7 @@ const st = StyleSheet.create({
         alignItems:'center',
     },
     listl:{
-      padding:10,
+      padding:20,
       fontFamily:'mt-bold',
 
     },

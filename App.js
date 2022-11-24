@@ -10,6 +10,7 @@ import Main from './Components/Main';
 import Auth from './Components/Auth';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import Register from './Components/Register';
 
 const fonts= () => Font.loadAsync({
   'mt-medium': require('./assets/fonts/Montserrat-Medium.ttf'),
@@ -20,13 +21,15 @@ const fonts= () => Font.loadAsync({
 export default function App() {
   const [font, setFont] = useState(false)
   const [token,setToken] = useState(null)
+  const [register,setRegister] = useState(false)
   const [restoran,setRestoran] = useState("")
 if(font){
   return (   
         
         <NavigationContainer>
-         {token !== null ? <Main token={token} restoran={restoran} /> : <Auth token={token} setRestoran={setRestoran} setToken={setToken}/> } 
+         {token !== null ? <Main token={token} restoran={restoran} /> : register !== false ? <Register setRegister={setRegister}/> :  <Auth token={token} setRegister={setRegister} setRestoran={setRestoran} setToken={setToken}/> } 
       </NavigationContainer>
+     
   );}
   else{
     return(
