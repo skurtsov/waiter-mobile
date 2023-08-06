@@ -20,9 +20,9 @@ const fonts= () => Font.loadAsync({
 
 export default function App() {
   const [font, setFont] = useState(false)
-  const [token,setToken] = useState(null)
+  const [token,setToken] = useState('marta')
   const [register,setRegister] = useState(false)
-  const [restoran,setRestoran] = useState(null)
+  const [restoran,setRestoran] = useState('marta')
 if(font){
   return (   
         
