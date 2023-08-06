@@ -22,7 +22,7 @@ export default function App() {
   const [font, setFont] = useState(false)
   const [token,setToken] = useState(null)
   const [register,setRegister] = useState(false)
-  const [restoran,setRestoran] = useState("")
+  const [restoran,setRestoran] = useState(null)
 if(font){
   return (   
         

@@ -14,26 +14,27 @@ let Auth=(props)=> {
   // const [token,setToken]= useState('');
   // const [restoran,setRestoran]= useState('');
 let go_login = () =>{
-  fetch("https://makemesites.com/restoran/app/loginmoba.php?username="+login+"&password="+pass, {
+  fetch("https://reactive-cafe.com/api/getuser?username="+login+"&password="+pass, {
     method: "GET", // POST, PUT, DELETE, etc.
     headers: {
       "Content-Type": "text/plain;charset=UTF-8"
     },
-    cache: "no-cache", // no-store, reload, no-cache, force-cache или only-if-cached
+    cache: "no-cache",
+    mode:"no-cors", // no-store, reload, no-cache, force-cache или only-if-cached
   }).then(function (response) {
       response.json().then(function (data) {
         console.log("data token is:"+data.token)
         props.setRestoran(data.restoran);
         props.setToken(data.token)
        })})
-       setHidd(true)
+      setTimeout(()=>setHidd(true),1000);
 }
   return (
     <View style={styles.container}>
       <Image style={styles.img} source={require('../assets/logo.png')}/>
       {/* <Text style={styles.headl}>Bienvenido a Reactive Cafe</Text> */}
           <TextInput autoCapitalize='none' placeholder='Login' style={styles.inpt} onChangeText={(text)=>setLogin(text)}/>
-          <TextInput secureTextEntry={true} placeholder='Password' style={styles.inpt} onChangeText={(textq)=>setPass(textq)} />
+          <TextInput secureTextEntry={true} autoCapitalize="none" placeholder='Password' style={styles.inpt} onChangeText={(textq)=>setPass(textq)} />
           {hidd ? <Text style={styles.err}>El nombre de usuario o la contraseña no es válida</Text>:null}
          <TouchableOpacity style={styles.login__button}onPress={go_login}>
                <Text style={styles.login__text}>Iniciar sesión</Text>

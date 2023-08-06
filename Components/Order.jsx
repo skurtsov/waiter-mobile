@@ -44,7 +44,7 @@ return(
     <div>
           <div class="card__waiter">
             <div class="stolik">
-                <p>Numero de mesa: {props.stolik}</p>
+             <p>Numero de mesa: {typeof(props.stolik)}</p> 
             </div>
             <div class="zam">
                 <ul className="zakaz__waiter">

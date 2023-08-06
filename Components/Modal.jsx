@@ -15,7 +15,7 @@ let Modal_me = (props) => {
     const [text,setText] = useState(props.zakaz);
   let go_redact=()=>{
   //  alert(text)
-    fetch("https://makemesites.com/restoran/app/redactmob.php?restoran="+props.restoran+"&id="+props.id+"&order="+text, {
+    fetch("https://reactive-cafe.com/api/redactid?restoran="+props.restoran+"&id="+props.id+"&zakaz=undefined,"+text, {
       method: "GET", // POST, PUT, DELETE, etc.
       headers: {
         // значение этого заголовка обычно ставится автоматически,

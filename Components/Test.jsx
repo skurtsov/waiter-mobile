@@ -23,7 +23,7 @@ let Test = (props) => {
     const [text,setText] = useState('');
    // console.log("array to show"+show_arr)
    let deleteById=(prod_id)=>{
-    fetch("https://makemesites.com/restoran/app/delete_idmob.php?restoran="+props.restoran+"&id="+prod_id, {
+    fetch("https://reactive-cafe.com/api/deleteid/?restoran="+props.restoran+"&id="+prod_id, {
       method: "GET", // POST, PUT, DELETE, etc.
       headers: {
         // значение этого заголовка обычно ставится автоматически,
@@ -37,7 +37,7 @@ let Test = (props) => {
 
 return(
 <View style={st.card}>
-<Text style={st.mesa}>Numero de mesa:{props.stolik}</Text>
+{props.stolik<100? <Text style={st.mesa}>Numero de mesa:{props.stolik}</Text>:<Text style={st.mesa}>Numero de orden:{props.stolik}</Text>}
 <View style={st.card_c}>
   
 <FlatList
@@ -98,6 +98,7 @@ const st = StyleSheet.create({
         borderBottomColor: "#000",
         borderBottomWidth: 1,
         width: Dimensions.get('window').width,
+        minHeight:100,
     },
       mesa:{
         width: Dimensions.get('window').width,

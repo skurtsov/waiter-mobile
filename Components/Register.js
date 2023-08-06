@@ -23,18 +23,16 @@ const[success,setSuccess]=useState(false);
   // const [token,setToken]= useState('');
   // const [restoran,setRestoran]= useState('');
 let go_login = () =>{
-  fetch("https://makemesites.com/restoran/sendUserReg.php?nombre="+nombre+"&cafe="+cafe+"&tel="+tel+"&mail="+mail+"&ciudad="+ciudad+"&adress="+adress+"&camareros="+camareros+"&mesas="+mesas , {
+  fetch("https://reactive-cafe.com/api/newuser?nombre="+nombre+"&cafe="+cafe+"&tel="+tel+"&mail="+mail+"&ciudad="+ciudad+"&adress="+adress+"&camareros="+camareros+"&mesas="+mesas , {
     method: "GET", // POST, PUT, DELETE, etc.
     headers: {
       "Content-Type": "text/plain;charset=UTF-8"
     },
-    cache: "no-cache", // no-store, reload, no-cache, force-cache или only-if-cached
+    cache: "no-cache",
+    cors:"no-cors", // no-store, reload, no-cache, force-cache или only-if-cached
   }).then(function (response) {
-      response.json().then(function (data) {
-        console.log("data token is:"+data.token)
-        props.setRestoran(data.restoran);
-        props.setToken(data.token)
-       })})
+      console.log('OK')
+       });
        setSuccess(true)
 }
   return (
@@ -42,8 +40,8 @@ let go_login = () =>{
     <View style={styles.container}>
       {success ? (
      <View>
-        <Text style={styles.success_txt}>Your messege was sent succesfully{"\n"}</Text>
-        <Text style={styles.success_txt}>Our manager will contact you soon</Text>
+        <Text style={styles.success_txt}>Su mensaje fue enviado exitosamente{"\n"}</Text>
+        <Text style={styles.success_txt}>Nuestro gerente se comunicará con usted pronto</Text>
         <TouchableOpacity style={styles.success_btn} onPress={()=>props.setRegister(false)}>
           <Text style={styles.success_btn_txt}>OK</Text>
         </TouchableOpacity>
@@ -123,6 +121,7 @@ const styles = StyleSheet.create({
     fontFamily:'mt-bold',
     fontSize:25,
     bottom:'1%',
+    alignSelf:'center',
   },
   minus:{
     backgroundColor:'green',
@@ -161,6 +160,7 @@ m__bot:{
   fontFamily:'mt-medium',
   marginBottom:10,
   marginTop:10,
+  alignSelf:'center',
 },
   tables:{
     flexDirection:'row',
@@ -205,6 +205,7 @@ m__bot:{
     padding:15,
     borderRadius:10,
     marginTop:10,
+    alignSelf:'center',
   },
   login__text:{
     textAlign:'center',

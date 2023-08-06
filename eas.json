@@ -3,6 +3,12 @@
     "version": ">= 2.1.0"
   },
   "build": {
+    "preview": {
+      "ios": {
+        "simulator": true
+      }
+    },
+    "production": {},
     "development": {
       "developmentClient": true,
       "distribution": "internal"

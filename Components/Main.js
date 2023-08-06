@@ -22,13 +22,14 @@ let Main=(props)=> {
     const [newr, setNewr] = useState("");
     let arr = ["hello its my","bbbf"];
     let get_orders=()=>{
-  fetch("https://makemesites.com/restoran/app/waitermobb.php?restoran="+restoran, {
+  fetch("https://reactive-cafe.com/api/getorders/?restoran="+restoran, {
     method: "GET", // POST, PUT, DELETE, etc.
     headers: {
       // значение этого заголовка обычно ставится автоматически,
       // в зависимости от тела запроса
       "Content-Type": "text/plain;charset=UTF-8"
     },
+    cors:'no-cors',
     cache: "no-cache", // no-store, reload, no-cache, force-cache или only-if-cached
   }).then(function (response) {
       response.text().then(function (data) {
@@ -44,14 +45,15 @@ let Main=(props)=> {
 }
 let clean_orders=()=>{     
 
-    fetch("https://makemesites.com/restoran/app/cleanmob.php?restoran="+restoran, {
+    fetch("https://reactive-cafe.com/api/deleteall?restoran="+restoran, {
       method: "GET", // POST, PUT, DELETE, etc.
       headers: {
         // значение этого заголовка обычно ставится автоматически,
         // в зависимости от тела запроса
         "Content-Type": "text/plain;charset=UTF-8"
       },
-      cache: "no-cache", // no-store, reload, no-cache, force-cache или only-if-cached
+      cache: "no-cache",
+      mode:"no-cors", // no-store, reload, no-cache, force-cache или only-if-cached
     })
 
 }
@@ -73,14 +75,14 @@ useEffect(() => {
     <Root style={styles.blanco}>
         <View style={styles.container}>
                 <View style={styles.content}>
-                      <Text style={styles.total}>Pedidos totales:{newr.length}</Text>
+                      <Text style={styles.total}> Pedidos totales:{newr.length}</Text>
 
                       <View style={styles.scrl}>
-                            <ScrollView style={{height:800}}>
+                            <View style={{height:800}}>
                                 <Text>
                                     {newr}
                                 </Text>
-                            </ScrollView>
+                            </View>
                       </View>
            
             </View>
